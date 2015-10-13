@@ -234,29 +234,11 @@ namespace Microsoft.AspNet.SignalR.ServiceBus
 
             try
             {
-                IAsyncResult result = receiverContext.Receiver.BeginReceiveBatch(ReceiverContext.ReceiveBatchSize, receiverContext.ReceiveTimeout, ar =>
+                if (ContinueReceiving(receiverContext))
                 {
-                    if (ar.CompletedSynchronously)
-                    {
-                        return;
-                    }
-
-                    var ctx = (ReceiverContext)ar.AsyncState;
-
-                    if (ContinueReceiving(ar, ctx))
-                    {
-                        ProcessMessages(ctx);
-                    }
-                },
-                receiverContext);
-
-                if (result.CompletedSynchronously)
-                {
-                    if (ContinueReceiving(result, receiverContext))
-                    {
-                        goto receive;
-                    }
+                    goto receive;
                 }
+                
             }
             catch (OperationCanceledException)
             {
@@ -276,14 +258,16 @@ namespace Microsoft.AspNet.SignalR.ServiceBus
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions are handled through the error handler callback")]
-        private bool ContinueReceiving(IAsyncResult asyncResult, ReceiverContext receiverContext)
+        private bool ContinueReceiving(ReceiverContext receiverContext)
         {
             bool shouldContinue = true;
             TimeSpan backoffAmount = _backoffTime;
 
             try
             {
-                IEnumerable<BrokeredMessage> messages = receiverContext.Receiver.EndReceiveBatch(asyncResult);
+                IEnumerable<BrokeredMessage> messages =
+                    receiverContext.Receiver.ReceiveBatch(ReceiverContext.ReceiveBatchSize,
+                        receiverContext.ReceiveTimeout);
 
                 receiverContext.OnMessage(messages);
 
