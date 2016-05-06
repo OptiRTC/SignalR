@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30321.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNet.SignalR.Core", "src\Microsoft.AspNet.SignalR.Core\Microsoft.AspNet.SignalR.Core.csproj", "{1B9A82C4-BCA1-4834-A33E-226F17BE070B}"
 EndProject
@@ -79,8 +79,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNet.SelfHost.Samples", "samples\Microsoft.AspNet.SelfHost.Samples\Microsoft.AspNet.SelfHost.Samples.csproj", "{5D69B6BE-062B-408D-913E-5CD2F21D5D17}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNet.SignalR.Client40.Samples", "samples\Microsoft.AspNet.SignalR.Client40.Samples\Microsoft.AspNet.SignalR.Client40.Samples.csproj", "{2B6F3C11-DE35-4948-A49F-A6C65A297C86}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNet.SignalR.Client.Portable", "src\Microsoft.AspNet.SignalR.Client.Portable\Microsoft.AspNet.SignalR.Client.Portable.csproj", "{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNet.SignalR.Client.Silverlight.Samples", "samples\Microsoft.AspNet.SignalR.Client.Silverlight.Samples\Microsoft.AspNet.SignalR.Client.Silverlight.Samples.csproj", "{3DCD7F29-E221-45B6-8C0C-881D931946E9}"
 EndProject
@@ -424,20 +422,6 @@ Global
 		{2B6F3C11-DE35-4948-A49F-A6C65A297C86}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2B6F3C11-DE35-4948-A49F-A6C65A297C86}.Release|x64.ActiveCfg = Release|Any CPU
 		{2B6F3C11-DE35-4948-A49F-A6C65A297C86}.Release|x86.ActiveCfg = Release|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Release|ARM.ActiveCfg = Release|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Release|x64.ActiveCfg = Release|Any CPU
-		{47B3F28E-76DB-40BD-A8F5-800CF08D84ED}.Release|x86.ActiveCfg = Release|Any CPU
 		{3DCD7F29-E221-45B6-8C0C-881D931946E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3DCD7F29-E221-45B6-8C0C-881D931946E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DCD7F29-E221-45B6-8C0C-881D931946E9}.Debug|ARM.ActiveCfg = Debug|Any CPU
