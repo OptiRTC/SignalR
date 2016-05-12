@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 
@@ -228,13 +229,13 @@ namespace Microsoft.AspNet.SignalR.ServiceBus
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions are handled through the error handler callback")]
-        private void ProcessMessages(ReceiverContext receiverContext)
+        private async void ProcessMessages(ReceiverContext receiverContext)
         {
         receive:
 
             try
             {
-                if (ContinueReceiving(receiverContext))
+                if (await ContinueReceiving(receiverContext))
                 {
                     goto receive;
                 }
@@ -258,7 +259,7 @@ namespace Microsoft.AspNet.SignalR.ServiceBus
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions are handled through the error handler callback")]
-        private bool ContinueReceiving(ReceiverContext receiverContext)
+        private async Task<bool> ContinueReceiving(ReceiverContext receiverContext)
         {
             bool shouldContinue = true;
             TimeSpan backoffAmount = _backoffTime;
@@ -266,7 +267,7 @@ namespace Microsoft.AspNet.SignalR.ServiceBus
             try
             {
                 IEnumerable<BrokeredMessage> messages =
-                    receiverContext.Receiver.ReceiveBatch(ReceiverContext.ReceiveBatchSize,
+                    await receiverContext.Receiver.ReceiveBatchAsync(ReceiverContext.ReceiveBatchSize,
                         receiverContext.ReceiveTimeout);
 
                 receiverContext.OnMessage(messages);
@@ -290,10 +291,10 @@ namespace Microsoft.AspNet.SignalR.ServiceBus
             }
             catch (MessagingEntityNotFoundException ex)
             {
-                receiverContext.Receiver.CloseAsync().Catch();
+                await receiverContext.Receiver.CloseAsync().Catch();
                 receiverContext.OnError(ex);
 
-                TaskAsyncHelper.Delay(RetryDelay)
+                await TaskAsyncHelper.Delay(RetryDelay)
                                .Then(() => Retry(() => CreateSubscription(receiverContext.ConnectionContext, receiverContext.TopicIndex)));
                 return false;
             }
@@ -313,7 +314,7 @@ namespace Microsoft.AspNet.SignalR.ServiceBus
 
             if (!shouldContinue)
             {
-                TaskAsyncHelper.Delay(backoffAmount)
+                await TaskAsyncHelper.Delay(backoffAmount)
                                .Then(ctx => ProcessMessages(ctx), receiverContext);
 
                 return false;
